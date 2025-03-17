@@ -49,3 +49,41 @@ sayfa_sayisi int,
 kitap_adi nvarchar(100),
 yayin_tarihi nvarchar(100)
 );
+
+use kutuphane;
+CREATE TABLE Yazarlar(
+YazarID INT PRIMARY KEY,
+YazarAdi VARCHAR(100),
+DogumTarihi DATE,
+DogumYeri VARCHAR(100)
+);
+
+use kutuphane;
+create table kitap_yazarları(
+ISBN int foreign key(ISBN) references kitaplar(ISBN),
+yazar_no int foreign key(yazar_no) references yazarlar(yazar_no),
+primary key(ISBN,yazar_no)
+);
+
+use kutuphane;
+create table kitap_katagorileri(
+ISBN int foreign key(ISBN) references kitaplar(ISBN),
+katagori_no int foreign key(katagori_no) references katagoriler(katagori_no),
+primary key(ISBN,katagori_no)
+);
+
+use kutuphane;
+create table katagoriler(
+katagori_no int primary key identity(1,1),
+katagori_ismi nvarchar(50)
+);
+
+use kutuphane;
+create table kutuphane_kitap(
+kutuphane_no int foreign key references kutuphane_t(kutuphane_no),
+ISBN int foreign key references kitaplar(ISBN),
+miktar int,
+primary key(kutuphane_no,ISBN)
+);
+
+
